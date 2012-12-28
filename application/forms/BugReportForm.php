@@ -23,6 +23,10 @@ class Form_BugReportForm extends Zend_Form
 		$email->setAttrib('size', 40);
 		$this->addElement($email);
 		
+		//the ID control 
+		$id = $this->createElement('hidden', 'id');
+		$this->addElement($id);
+		
 		// add element: date textbox
 		$date = $this->createElement('text', 'date');
 		$date->setLabel('Date the issue occurred (mm-dd-yyyy):');
