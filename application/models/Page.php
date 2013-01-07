@@ -20,6 +20,27 @@ class Model_Page extends Zend_Db_Table_Abstract {
 		),	
 	);
 	
+	public function indexAction()
+	{
+		$pageModel = new Model_Page();
+		$recentPages = $pageModel->getRecentPages();
+		
+		if(is_array($recentPages)) {
+			// the 3 most recent items are the featured items
+			for($i = 1; $i <= 3; $i++) {
+				if(count($recentPages) > 0) {
+					$featuredItems[] = array_shift($recentPages);
+				}
+			}
+			$this->view->featuredItems = $featuredItems;
+			if(count(recentPages) > 0) {
+				$this->view->recentPages = $recentPages;
+			} else {
+				$this->view->recentPages = $null;
+			}
+		}
+	}
+	
 	public function createPage($name, $namespace, $parentId = 0)
 	{
 		//create the new page
@@ -43,6 +64,25 @@ class Model_Page extends Zend_Db_Table_Abstract {
 			return true;
 		} else {
 			throw new Zend_Exception("Delete function failed; could not find page!");
+		}
+	}
+	
+	public function getRecentPages ($count = 10, $namespace = 'page')
+	{
+		$select = $this->select();
+		$select->order = 'date_created DESC';
+		$select->where('namespace = ?', $namespace);
+		$select->limit($count);
+		$results = $this->fetchAll($select);
+		if ($results->count() > 0) {
+			//cycle through the results, opening each page
+			$pages = array();
+			foreach ($results as $result) {
+				$pages[$result->id] = new CMS_Content_Item_Page($result->id);
+			}
+			return $pages;
+		} else {
+			return null;
 		}
 	}
 	
