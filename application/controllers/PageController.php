@@ -1,6 +1,6 @@
 <?php
 
-class Form_PageForm extends Zend_Controller_Action
+class PageController extends Zend_Controller_Action
 {
 	public function createAction()
 	{

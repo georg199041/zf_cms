@@ -14,8 +14,8 @@ class Model_ContentNode extends Zend_Db_Table_Abstract {
 			'refTableClass' => 'Model_Page',
 			'refColumns' => array('id'),
 			'onDelete' => self::CASCADE,
-			'onUpdate' => self::RESTRICT,				
-		),		
+			'onUpdate' => self::RESTRICT
+		)
 	);
 	
 	public function setNode($pageId, $node, $value)

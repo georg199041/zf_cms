@@ -2,6 +2,7 @@
 
 require_once 'Zend/Db/Table/Abstract.php';
 require_once APPLICATION_PATH . '/models/ContentNode.php';
+
 class Model_Page extends Zend_Db_Table_Abstract {
 	/**
 	 * The default table name
@@ -11,11 +12,11 @@ class Model_Page extends Zend_Db_Table_Abstract {
 	protected $_dependentTables = array('Model_ContentNode');
 	protected $_referenceMap 	= array(
 		'Page' => array(
-			'columns' => array('parent_id'),
-			'refTable' => 'Model_Page',
+			'columns' 	 => array('parent_id'),
+			'refTable' 	 => 'Model_Page',
 			'refColumns' => array('id'),
-			'oneDelete' => 	self::CASCADE,
-			'onUpdate' => self::RESTRICT,		
+			'oneDelete'  => 	self::CASCADE,
+			'onUpdate'   => self::RESTRICT,		
 		),	
 	);
 	
